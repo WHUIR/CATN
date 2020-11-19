@@ -29,9 +29,11 @@ class CATN_RUNNER:
             Reviews_mask = np.zeros_like(Reviews, dtype=np.float32)
 
             for _id, review in reviews.items():
-                Reviews[_id] = review
                 Reviews_mask[_id] = (review != -1)
-
+                review = [0 if _ == -1 else _ for _ in review]
+                review = np.array(review)
+                Reviews[_id] = review
+                # print(review)
             return Reviews, Reviews_mask
 
         self.user_reviews_s, self.user_reviews_mask_s = reviews2arr(self.docu_udict_s, self.user_num)
